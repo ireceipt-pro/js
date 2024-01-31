@@ -10,11 +10,10 @@ export const createFile = async (
   args: { [key: string]: unknown },
   size?: { width: number; height: number }
 ): Promise<ArrayBuffer> => {
-  let attempt = 5;
+  let attempt = 1;
   let buffer: ArrayBuffer | undefined;
   let error: Error | undefined;
-  while (attempt > 0 && !buffer) {
-    attempt--;
+  while (attempt <= 5 && !buffer) {
     try {
       const res = await axios.post(
         `${apiUrl}${type}/${templateType}/${templateId}`,
@@ -38,6 +37,11 @@ export const createFile = async (
     } catch (err: any) {
       error = handleError(err);
     }
+    attempt++;
+    if (!buffer)
+      await new Promise((res) => {
+        setTimeout(res, attempt * 1000);
+      });
   }
   if (!buffer) throw error;
   return buffer;

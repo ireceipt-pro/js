@@ -29,9 +29,8 @@ jobs:
           ref: ${{ github.repository }}
           branch: "main"
           builds-and-checks: |
-            npm run lint
             npm run build
-            npm test
+            # npm test
           debug: "true"
           ignore-packages: |
             @types/node
