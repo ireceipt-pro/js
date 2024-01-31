@@ -38,6 +38,7 @@ jobs:
             @types/node
   release:
     runs-on: ubuntu-latest
+    permissions: write-all
     timeout-minutes: 15
     env:
       NODE_VERSION: 20
@@ -78,7 +79,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.VERSION }}
           release_name: Release ${{ env.VERSION }}
