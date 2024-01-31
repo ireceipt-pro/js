@@ -2,6 +2,12 @@
 
 Create PDF files or images from your HTML template.
 
+[![npm](https://img.shields.io/npm/v/@ireceipt.pro/js.svg)](https://www.npmjs.com/package/@ireceipt.pro/js)
+[![npm](https://img.shields.io/npm/dy/@ireceipt.pro/js.svg)](https://www.npmjs.com/package/@ireceipt.pro/js)
+[![NpmLicense](https://img.shields.io/npm/l/@ireceipt.pro/js.svg)](https://www.npmjs.com/package/@ireceipt.pro/js)
+![GitHub last commit](https://img.shields.io/github/last-commit/ireceipt-pro/js.svg)
+![GitHub release](https://img.shields.io/github/release/ireceipt-pro/js.svg)
+
 ## Get Started
 
 For the library to work, you will need an API key, which you can get at <https://dashboard.ireceipt.pro>. You can also find public template IDs there or create your own.
