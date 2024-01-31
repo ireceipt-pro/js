@@ -80,7 +80,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            see [CHANGELOG.md](https://github.com/ireceipt-pro/js/blob/master/CHANGELOG.md)
+            see [CHANGELOG.md](https://github.com/ireceipt-pro/js/blob/main/CHANGELOG.md)
           draft: false
           prerelease: false
       - name: Set registry npm packages
