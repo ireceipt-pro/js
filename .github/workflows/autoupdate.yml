@@ -38,7 +38,6 @@ jobs:
             @types/node
   release:
     runs-on: ubuntu-latest
-    permissions: write-all
     timeout-minutes: 15
     env:
       NODE_VERSION: 20
