@@ -1,0 +1,15 @@
+.github
+.nyc_output
+docs
+node_modules
+src
+test
+.eslintrc.js
+.gitignore
+.npmignore
+package-lock.json
+tsconfig.json
+tslint.json
+typedoc.json
+*.log
+.vscode
