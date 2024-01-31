@@ -37,6 +37,8 @@ jobs:
           ignore-packages: |
             @types/node
   release:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
