@@ -1,7 +1,7 @@
 {
   "name": "@ireceipt.pro/js",
   "version": "1.0.0",
-  "description": "Create PDF files or images from your HTML template.",
+  "description": "Create PDF files or images (JPG, PNG, WEBP) from your HTML template.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -35,7 +35,11 @@
     "PDF",
     "JPG",
     "JPEG",
+    "PNG",
+    "WEBP",
+    "IMAGE",
     "template",
+    "templates",
     "mustache",
     "invoice",
     "giftcard"
