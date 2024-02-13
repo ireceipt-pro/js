@@ -1,3 +1,8 @@
+# 1.0.4 / 2024-02-13
+
+### :tada: Enhancements
+- Updated dependencies: @typescript-eslint/eslint-plugin, @typescript-eslint/parser, chai
+
 # 1.0.3 / 2024-02-09
 
 ### :tada: Enhancements
