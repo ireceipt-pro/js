@@ -55,7 +55,7 @@
     "eslint-plugin-import": "^2.29.1",
     "mocha": "^10.3.0",
     "nyc": "^15.1.0",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   },
   "engines": {
     "node": ">=14"
