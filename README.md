@@ -17,7 +17,7 @@ import { IReceiptPRO } from '@ireceipt.pro/js';
 
 const irp = new IReceiptPRO(process.env.IRETAILPRO_API_KEY);
 
-irp.createJpgFromPublicTemplate("invoice_template_1", {
+irp.createJpgFromPublicTemplate("invoice_universal_vzrt6k1s", {
   "invoice": {
     "number": "13",
     "date": "2023-10-03",
