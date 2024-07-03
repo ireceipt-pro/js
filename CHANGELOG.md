@@ -1,3 +1,8 @@
+# 1.0.27 / 2024-07-03
+
+### :tada: Enhancements
+- Updated dependencies: mocha
+
 # 1.0.26 / 2024-07-02
 
 ### :tada: Enhancements
