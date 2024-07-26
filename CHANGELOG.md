@@ -1,3 +1,8 @@
+# 1.0.32 / 2024-07-26
+
+### :tada: Enhancements
+- Updated dependencies: chai
+
 # 1.0.31 / 2024-07-23
 
 ### :tada: Enhancements
