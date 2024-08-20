@@ -38,7 +38,6 @@ jobs:
           debug: "true"
           ignore-packages: |
             @types/node
-            eslint
   release:
     permissions:
       contents: write
