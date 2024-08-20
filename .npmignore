@@ -5,6 +5,7 @@ node_modules
 src
 test
 .eslintrc.js
+eslint.config.mjs
 .gitignore
 .npmignore
 package-lock.json

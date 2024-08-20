@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Сheckout repo
         id: checkout_repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: "tmp"
           ref: "main"
@@ -45,14 +45,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      NODE_VERSION: 20
+      NODE_VERSION: 22
       VERSION: ${{ needs.update.outputs.version }}
     needs: [update]
     if: ${{ needs.update.outputs.updated == 'true' }}
     steps:
       - name: Сheckout repo
         id: checkout_repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: "main"
       - name: Use Node.js ${{ env.NODE_VERSION }}

@@ -8,7 +8,7 @@ export const handleError = (err: AxiosError | Error | any) => {
         ? (JSON.parse(respText) as { message: string })
         : { message: `Unknown error with status code ${err.code}` };
       return new Error(respJSON.message);
-    } catch (e) {
+    } catch {
       return new Error(`Unknown error with status code ${err.code}`);
     }
   }

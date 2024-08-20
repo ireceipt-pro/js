@@ -37,7 +37,7 @@ export const createFile = async (
     } catch (err: any) {
       error = handleError(err);
     }
-    attempt++;
+    attempt += 1;
     if (!buffer)
       await new Promise((res) => {
         setTimeout(res, attempt * 1000);

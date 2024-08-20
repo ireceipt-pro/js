@@ -7,7 +7,7 @@
   "scripts": {
     "test": "node_modules/.bin/mocha test/**/*.test.js -r chai/register-expect.js",
     "cov": "node_modules/.bin/nyc npm run test -r chai/register-expect.js",
-    "prebuild": "node_modules/.bin/eslint -c .eslintrc.js --ext .ts src",
+    "prebuild": "node_modules/.bin/eslint src/**/*.ts",
     "build": "rm -rf lib && node_modules/.bin/tsc --declaration",
     "update": "eval \"$(node -e 'const t = require(`./package.json`);const ignore = require(`./ignoreUpdatesModules.json`);console.log(`npm i ${(Object.keys(t.dependencies || {}).filter((e)=>ignore.base.indexOf(e) === -1).map((e)=>(`${e}@latest`)).join(` `))} --save&&npm i ${(Object.keys(t.devDependencies || {}).filter((e)=>ignore.dev.indexOf(e) === -1).map((e)=>(`${e}@latest`)).join(` `))} --save-dev`);')\""
   },
@@ -46,15 +46,15 @@
   ],
   "homepage": "https://www.npmjs.com/package/@ireceipt-pro/js",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.2.0",
-    "@typescript-eslint/parser": "^8.2.0",
+    "@eslint/js": "^9.9.0",
     "chai": "^5.1.1",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint": "^9.9.0",
     "mocha": "^10.7.3",
     "nyc": "^17.0.0",
-    "typescript": "^5.5.4"
+    "prettier": "^3.3.3",
+    "sinon": "^18.0.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.2.0"
   },
   "engines": {
     "node": ">=14"
