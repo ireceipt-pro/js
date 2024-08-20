@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "test": "node --test test/**/*.test.js",
+    "test": "node --test test/*.test.js",
     "cov": "node_modules/.bin/nyc npm run test",
     "prebuild": "node_modules/.bin/eslint src/**/*.ts",
     "build": "rm -rf lib && node_modules/.bin/tsc --declaration",
