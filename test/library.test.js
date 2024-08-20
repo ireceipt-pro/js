@@ -1,19 +1,20 @@
 "use strict";
-require("mocha");
+const { describe, it } = require("node:test");
+const assert = require("node:assert");
 const { IReceiptPRO } = require("../lib/index");
 
 describe("Testing lib.", function () {
   it("constructor", async function () {
     const key = "test";
     const irp = new IReceiptPRO(key);
-    expect(irp).to.be.instanceof(IReceiptPRO);
-    expect(irp.apiKey).to.be.eql(key);
+    assert.equal(irp instanceof IReceiptPRO, true);
+    assert.equal(irp.apiKey, key);
   });
 
   it("useApiKey", async function () {
     const key = "test";
     const irp = IReceiptPRO.useApiKey(key);
-    expect(irp).to.be.instanceof(IReceiptPRO);
-    expect(irp.apiKey).to.be.eql(key);
+    assert.equal(irp instanceof IReceiptPRO, true);
+    assert.equal(irp.apiKey, key);
   });
 });

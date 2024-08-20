@@ -1,5 +1,6 @@
 "use strict";
-require("mocha");
+const { describe, it } = require("node:test");
+const assert = require("node:assert");
 const { IReceiptPRO } = require("../lib/index");
 
 describe("Testing of all API methods.", function () {
@@ -8,16 +9,14 @@ describe("Testing of all API methods.", function () {
   const testTemplateArgs = { ping: "pong" };
   const testTemplateSize = { width: 100, height: 210 };
 
-  this.timeout(60000);
-
   it("createJpgFromPrivateTemplate", async function () {
     const data = await irp.createJpgFromPrivateTemplate(
       testTemplateId,
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("JFIF")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("JFIF"), true);
   });
 
   it("createJpgFromPublicTemplate", async function () {
@@ -26,8 +25,8 @@ describe("Testing of all API methods.", function () {
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("JFIF")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("JFIF"), true);
   });
 
   it("createPdfFromPrivateTemplate", async function () {
@@ -36,8 +35,8 @@ describe("Testing of all API methods.", function () {
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("PDF")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("PDF"), true);
   });
 
   it("createPdfFromPublicTemplate", async function () {
@@ -46,8 +45,8 @@ describe("Testing of all API methods.", function () {
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("PDF")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("PDF"), true);
   });
 
   it("createPngFromPrivateTemplate", async function () {
@@ -56,8 +55,8 @@ describe("Testing of all API methods.", function () {
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("PNG")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("PNG"), true);
   });
 
   it("createPngFromPublicTemplate", async function () {
@@ -66,8 +65,8 @@ describe("Testing of all API methods.", function () {
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("PNG")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("PNG"), true);
   });
 
   it("createWebpFromPrivateTemplate", async function () {
@@ -76,8 +75,8 @@ describe("Testing of all API methods.", function () {
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("WEBP")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("WEBP"), true);
   });
 
   it("createWebpFromPublicTemplate", async function () {
@@ -86,7 +85,7 @@ describe("Testing of all API methods.", function () {
       testTemplateArgs,
       testTemplateSize
     );
-    expect(data).to.be.instanceof(Buffer);
-    expect(data.includes("WEBP")).to.be.true;
+    assert.equal(data instanceof Buffer, true);
+    assert.equal(data.includes("WEBP"), true);
   });
 });

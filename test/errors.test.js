@@ -1,5 +1,6 @@
 "use strict";
-require("mocha");
+const { describe, it } = require("node:test");
+const assert = require("node:assert");
 const { IReceiptPRO } = require("../lib/index");
 
 describe("Testing errors.", function () {
@@ -7,8 +8,6 @@ describe("Testing errors.", function () {
   const testTemplateId = "check";
   const testTemplateArgs = { ping: "pong" };
   const testTemplateSize = { width: 100, height: 210 };
-
-  this.timeout(60000);
 
   it("Token invalid", async function () {
     let error;
@@ -21,8 +20,8 @@ describe("Testing errors.", function () {
     } catch (err) {
       error = err;
     }
-    expect(error).to.be.instanceof(Error);
-    expect(error.message).to.be.an("string");
-    expect(error.message).to.be.eql("Token invalid");
+    assert.equal(error instanceof Error, true);
+    assert.equal(typeof error.message, "string");
+    assert.equal(error.message, "Token invalid");
   });
 });
