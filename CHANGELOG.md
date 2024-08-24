@@ -1,3 +1,8 @@
+# 1.1.1 / 2024-08-24
+
+### :tada: Enhancements
+- Updated dependencies: @eslint/js, axios, eslint
+
 # 1.1.0 / 2024-08-20
 
 ### :tada: Enhancements
