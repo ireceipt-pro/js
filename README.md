@@ -12,13 +12,13 @@ Create PDF files or images from your HTML template.
 
 More information and examples are available on <https://dashboard.ireceipt.pro>
 
-| Invoice template invoice_for_services_h2lmu9s2 | Invoice template invoice_universal_e2wa2qvy | Invoice template invoice_universal_k5gizy86 |
+| | |  |
 | --- | --- | --- |
-| ![Invoice template invoice_for_services_h2lmu9s2](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_for_services_h2lmu9s2.png "invoice_for_services_h2lmu9s2") | ![Invoice template invoice_universal_e2wa2qvy](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_e2wa2qvy.png "invoice_universal_e2wa2qvy") | ![Invoice template invoice_universal_k5gizy86](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_k5gizy86.png "invoice_universal_k5gizy86") |
+| [![Invoice template invoice_for_services_h2lmu9s2](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_for_services_h2lmu9s2.png "invoice_for_services_h2lmu9s2")](https://dashboard.ireceipt.pro/sandbox/public/invoice_for_services_h2lmu9s2) | [![Invoice template invoice_universal_e2wa2qvy](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_e2wa2qvy.png "invoice_universal_e2wa2qvy")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_e2wa2qvy) | [![Invoice template invoice_universal_k5gizy86](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_k5gizy86.png "invoice_universal_k5gizy86")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_k5gizy86) |
 
-| Invoice template invoice_universal_qg1oiing | Invoice template invoice_universal_vzrt6k1s |
+|  |  |
 | --- | --- |
-| ![Invoice template invoice_universal_qg1oiing](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_qg1oiing.png "invoice_universal_qg1oiing") | ![Invoice template invoice_universal_vzrt6k1s](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_vzrt6k1s.png "invoice_universal_vzrt6k1s") |
+| [![Invoice template invoice_universal_qg1oiing](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_qg1oiing.png "invoice_universal_qg1oiing")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_qg1oiing) | [![Invoice template invoice_universal_vzrt6k1s](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_vzrt6k1s.png "invoice_universal_vzrt6k1s")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_vzrt6k1s) |
 
 ## Get Started
 
