@@ -1,3 +1,8 @@
+# 1.1.28 / 2024-11-26
+
+### :tada: Enhancements
+- Updated dependencies: axios, typescript-eslint
+
 # 1.1.27 / 2024-11-23
 
 ### :tada: Enhancements
