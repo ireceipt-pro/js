@@ -1,3 +1,8 @@
+# 1.1.32 / 2024-12-05
+
+### :tada: Enhancements
+- Updated dependencies: axios, prettier
+
 # 1.1.31 / 2024-12-03
 
 ### :tada: Enhancements
