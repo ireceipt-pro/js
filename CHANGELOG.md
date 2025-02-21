@@ -1,3 +1,8 @@
+# 1.1.45 / 2025-02-21
+
+### :tada: Enhancements
+- Updated dependencies: @eslint/js, eslint, prettier, typescript-eslint
+
 # 1.1.44 / 2025-01-28
 
 ### :tada: Enhancements
