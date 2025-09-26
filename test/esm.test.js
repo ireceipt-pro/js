@@ -1,17 +1,16 @@
-"use strict";
-const { describe, it } = require("node:test");
-const assert = require("node:assert");
-const { IReceiptPRO } = require("../lib/index");
+import { describe, it } from "node:test";
+import assert from "node:assert";
+import { IReceiptPRO } from "../dist/esm/index.js";
 
-describe("Testing lib.", function () {
-  it("constructor", async function () {
+describe("Testing ESM import.", function () {
+  it("ESM constructor", async function () {
     const key = "test";
     const irp = new IReceiptPRO(key);
     assert.equal(irp instanceof IReceiptPRO, true);
     assert.equal(irp.apiKey, key);
   });
 
-  it("useApiKey", async function () {
+  it("ESM useApiKey", async function () {
     const key = "test";
     const irp = IReceiptPRO.useApiKey(key);
     assert.equal(irp instanceof IReceiptPRO, true);

@@ -1,7 +1,7 @@
 "use strict";
 const { describe, it } = require("node:test");
 const assert = require("node:assert");
-const { IReceiptPRO } = require("../lib/index");
+const { IReceiptPRO } = require("../dist/cjs/index");
 
 describe("Testing errors.", function () {
   const irp = new IReceiptPRO("test");

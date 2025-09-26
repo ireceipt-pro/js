@@ -1,4 +1,4 @@
-import { createFile } from "./methods";
+import { createFile } from "./methods/index";
 
 export class IReceiptPRO {
   /**
