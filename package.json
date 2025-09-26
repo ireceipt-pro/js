@@ -26,15 +26,18 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test test/*.test.cjs test/*.test.js",
+    "test": "npm run build && npm run test:compile && npm run fix:test && node --test dist/test/test/library.test.js",
+    "test:compile": "tsc --project tsconfig.test.json",
+    "fix:test": "node scripts/fix-esm-imports.mjs dist/test",
     "cov": "node_modules/.bin/nyc npm run test",
     "prebuild": "node_modules/.bin/eslint src/**/*.ts",
-    "build": "npm run clean && npm run build:types && npm run build:cjs && npm run build:esm && npm run build:package",
+    "build": "npm run clean && npm run build:types && npm run build:cjs && npm run build:esm && npm run build:package && npm run fix:esm",
     "clean": "rm -rf dist lib",
     "build:types": "tsc --project tsconfig.types.json",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "build:package": "echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "fix:esm": "node scripts/fix-esm-imports.mjs",
     "update": "eval \"$(node -e 'const t = require(`./package.json`);const ignore = require(`./ignoreUpdatesModules.json`);console.log(`npm i ${(Object.keys(t.dependencies || {}).filter((e)=>ignore.base.indexOf(e) === -1).map((e)=>(`${e}@latest`)).join(` `))} --save&&npm i ${(Object.keys(t.devDependencies || {}).filter((e)=>ignore.dev.indexOf(e) === -1).map((e)=>(`${e}@latest`)).join(` `))} --save-dev`);')\""
   },
   "author": {
@@ -85,6 +88,7 @@
     "eslint": "^9.36.0",
     "nyc": "^17.1.0",
     "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1"
   },
