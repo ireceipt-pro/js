@@ -22,8 +22,25 @@ More information and examples are available on <https://dashboard.ireceipt.pro>
 
 ## Get Started
 
+This library supports both CommonJS and ES modules (dual package).
+
 For the library to work, you will need an API key, which you can get at <https://dashboard.ireceipt.pro>. You can also find public template IDs there or create your own.
 
+### ESM (ES Modules)
+```ts
+import { IReceiptPRO } from '@ireceipt.pro/js';
+
+const irp = new IReceiptPRO(process.env.IRETAILPRO_API_KEY);
+```
+
+### CommonJS
+```js
+const { IReceiptPRO } = require('@ireceipt.pro/js');
+
+const irp = new IReceiptPRO(process.env.IRETAILPRO_API_KEY);
+```
+
+### Example usage
 ```ts
 import { IReceiptPRO } from '@ireceipt.pro/js';
 

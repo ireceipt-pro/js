@@ -1,21 +1,18 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "strict": true,
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "types": ["node"],
+    "declaration": false,
+    "sourceMap": false,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "outDir": "lib",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2021",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
   },
-  "compileOnSave": true,
   "include": ["src"],
-  "typedocOptions": {
-    "out": "./docs/",
-    "theme": "default",
-    "name": "IReceipt PRO",
-    "includeVersion": true,
-    "hideGenerator": true
-  }
+  "exclude": ["node_modules", "dist", "lib", "test"]
 }

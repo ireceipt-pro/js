@@ -9,9 +9,9 @@ export const createFile = async (
   templateId: string,
   args: { [key: string]: unknown },
   size?: { width: number; height: number }
-): Promise<ArrayBuffer> => {
+): Promise<Buffer> => {
   let attempt = 1;
-  let buffer: ArrayBuffer | undefined;
+  let buffer: Buffer | undefined;
   let error: Error | undefined;
   while (attempt <= 5 && !buffer) {
     try {
