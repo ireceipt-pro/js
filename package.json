@@ -26,9 +26,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "npm run build && npm run test:compile && npm run fix:test && node --test dist/test/test/library.test.js",
-    "test:compile": "tsc --project tsconfig.test.json",
-    "fix:test": "node scripts/fix-esm-imports.mjs dist/test",
+    "test": "tsx --test test/library.test.ts",
     "cov": "node_modules/.bin/nyc npm run test",
     "prebuild": "node_modules/.bin/eslint src/**/*.ts",
     "build": "npm run clean && npm run build:types && npm run build:cjs && npm run build:esm && npm run build:package && npm run fix:esm",
@@ -88,7 +86,7 @@
     "eslint": "^9.36.0",
     "nyc": "^17.1.0",
     "prettier": "^3.6.2",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1"
   },
