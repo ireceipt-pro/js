@@ -44,6 +44,8 @@ jobs:
     strategy:
       matrix:
         node-version: [20, 22]
+    env:
+      IRECEIPTPRO_API_KEY: ${{ secrets.IRECEIPTPRO_API_KEY }}
     steps:
       - name: Сheckout repo
         uses: actions/checkout@v4
