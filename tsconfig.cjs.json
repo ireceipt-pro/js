@@ -4,6 +4,6 @@
     "module": "CommonJS",
     "outDir": "dist/cjs",
     "declaration": false,
-    "sourceMap": true
+    "sourceMap": false
   }
 }
