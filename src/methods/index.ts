@@ -1,3 +1,3 @@
-import { createFile } from "./createFile";
+import { createFile } from "./createFile.js";
 
 export { createFile };

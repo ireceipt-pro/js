@@ -1,6 +1,6 @@
 import axios from "axios";
-import { apiUrl } from "../utils/constants";
-import { handleError } from "../utils/handleError";
+import { apiUrl } from "../utils/constants.js";
+import { handleError } from "../utils/handleError.js";
 
 export const createFile = async (
   apiKey: string,

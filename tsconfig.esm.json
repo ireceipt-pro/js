@@ -1,10 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "ES2022",
     "moduleResolution": "bundler",
-    "outDir": "dist/esm",
+    "outDir": "./dist/esm",
     "declaration": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
   }
 }

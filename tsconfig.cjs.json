@@ -2,8 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "outDir": "dist/cjs",
+    "moduleResolution": "node",
+    "outDir": "./dist/cjs",
     "declaration": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
   }
 }
