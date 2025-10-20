@@ -9,11 +9,9 @@ concurrency:
   cancel-in-progress: false
 permissions:
   id-token: write
-  contents: read
+  contents: write
 jobs:
   update:
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
