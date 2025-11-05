@@ -1,3 +1,8 @@
+# 2.0.13 / 2025-11-05
+
+### :tada: Enhancements
+- Updated dependencies: axios
+
 # 2.0.12 / 2025-11-04
 
 ### :tada: Enhancements
