@@ -1,3 +1,8 @@
+# 2.0.17 / 2025-11-28
+
+### :tada: Enhancements
+- Updated dependencies: prettier
+
 # 2.0.16 / 2025-11-25
 
 ### :tada: Enhancements
