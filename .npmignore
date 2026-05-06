@@ -8,6 +8,7 @@ test
 eslint.config.mjs
 .gitignore
 .npmignore
+CLAUDE.md
 package-lock.json
 tsconfig.json
 tslint.json
