@@ -1,3 +1,8 @@
+# 2.0.44 / 2026-06-06
+
+### :tada: Enhancements
+- Updated dependencies: axios, tsx, typescript-eslint
+
 # 2.0.43 / 2026-05-30
 
 ### :tada: Enhancements
