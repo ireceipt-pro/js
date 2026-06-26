@@ -1,3 +1,8 @@
+# 2.0.47 / 2026-06-26
+
+### :tada: Enhancements
+- Updated dependencies: axios, eslint, globals, prettier, typescript-eslint
+
 # 2.0.46 / 2026-06-20
 
 ### :tada: Enhancements
