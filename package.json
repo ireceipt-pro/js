@@ -1,6 +1,6 @@
 {
   "name": "@ireceipt.pro/js",
-  "version": "2.0.47",
+  "version": "2.0.48",
   "description": "Create PDF files or images (JPG, PNG, WEBP) from your HTML template.",
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -85,10 +85,10 @@
     "eslint": "^10.6.0",
     "globals": "^17.7.0",
     "nyc": "^18.0.0",
-    "prettier": "^3.8.5",
-    "tsx": "^4.22.4",
+    "prettier": "^3.9.4",
+    "tsx": "^4.23.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.0"
+    "typescript-eslint": "^8.62.1"
   },
   "engines": {
     "node": ">=16"
