@@ -1,3 +1,8 @@
+# 2.0.50 / 2026-07-31
+
+### :tada: Enhancements
+- Updated dependencies: axios, globals, typescript
+
 # 2.0.48 / 2026-07-03
 
 ### :tada: Enhancements
