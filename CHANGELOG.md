@@ -1,3 +1,10 @@
+# 2.0.52 / 2026-08-14
+
+### :bug: Bug fixes
+- Type declarations are published again. `build:types` inherited `noEmit` from the base tsconfig, so it emitted nothing while still exiting 0 — every release since shipped a `types` field pointing at a file that was never built.
+- `createFile` no longer retries requests that cannot succeed. An invalid API key, unknown template or invalid variables failed after ~22s of retries; they now surface immediately. Retries still apply to transport errors, 5xx, and 408/429.
+- Corrected the API key environment variable in the README (`IRECEIPTPRO_API_KEY`) and fixed the `homepage` URL.
+
 # 2.0.50 / 2026-07-31
 
 ### :tada: Enhancements
