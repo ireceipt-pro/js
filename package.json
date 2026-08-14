@@ -78,7 +78,7 @@
     "invoice",
     "giftcard"
   ],
-  "homepage": "https://www.npmjs.com/package/@ireceipt-pro/js",
+  "homepage": "https://ireceipt.pro",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.2.0",

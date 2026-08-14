@@ -30,21 +30,21 @@ For the library to work, you will need an API key, which you can get at <https:/
 ```ts
 import { IReceiptPRO } from '@ireceipt.pro/js';
 
-const irp = new IReceiptPRO(process.env.IRETAILPRO_API_KEY);
+const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
 ```
 
 ### CommonJS
 ```js
 const { IReceiptPRO } = require('@ireceipt.pro/js');
 
-const irp = new IReceiptPRO(process.env.IRETAILPRO_API_KEY);
+const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
 ```
 
 ### Example usage
 ```ts
 import { IReceiptPRO } from '@ireceipt.pro/js';
 
-const irp = new IReceiptPRO(process.env.IRETAILPRO_API_KEY);
+const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
 
 irp.createJpgFromPublicTemplate("invoice_universal_vzrt6k1s", {
   "invoice": {
