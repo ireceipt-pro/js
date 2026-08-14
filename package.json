@@ -1,6 +1,6 @@
 {
   "name": "@ireceipt.pro/js",
-  "version": "2.0.51",
+  "version": "2.0.52",
   "description": "Create PDF files or images (JPG, PNG, WEBP) from your HTML template.",
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -78,7 +78,7 @@
     "invoice",
     "giftcard"
   ],
-  "homepage": "https://www.npmjs.com/package/@ireceipt-pro/js",
+  "homepage": "https://ireceipt.pro",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.2.0",
