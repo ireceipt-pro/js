@@ -1,6 +1,6 @@
-﻿# @ireceipt-pro/js
+# @ireceipt.pro/js
 
-Create PDF files or images from your HTML template.
+Create PDF files and images (JPG, PNG, WEBP) from hosted templates and JSON.
 
 [![npm](https://img.shields.io/npm/v/@ireceipt.pro/js.svg)](https://www.npmjs.com/package/@ireceipt.pro/js)
 [![npm](https://img.shields.io/npm/dy/@ireceipt.pro/js.svg)](https://www.npmjs.com/package/@ireceipt.pro/js)
@@ -8,117 +8,194 @@ Create PDF files or images from your HTML template.
 ![GitHub last commit](https://img.shields.io/github/last-commit/ireceipt-pro/js.svg)
 ![GitHub release](https://img.shields.io/github/release/ireceipt-pro/js.svg)
 
-## Examples
+```bash
+npm i @ireceipt.pro/js
+```
 
-More information and examples are available on <https://dashboard.ireceipt.pro>
+Note the dot in the scope. `@ireceipt.pro/js`, not `@ireceipt-pro/js`. And the
+unscoped names on npm are not us: `ireceipt` is an unrelated Taiwanese e-receipt
+library, `ireceipt-angular-client` an abandoned Angular CLI scaffold at 0.0.0.
+
+## Your first file
+
+You need an API key and a template id, both from <https://dashboard.ireceipt.pro>.
+The template ids below are public, so you can run this before creating anything
+of your own.
+
+```ts
+import { IReceiptPRO } from '@ireceipt.pro/js';
+
+const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
+
+const pdf = await irp.createPdfFromPublicTemplate(
+  'invoice_universal_vzrt6k1s',
+  { invoice: { number: '13' } }
+);
+```
+
+`pdf` is a `Buffer` (or `ArrayBuffer`, depending on your runtime). Write it to
+disk, stream it, attach it to an email — it is just the file's bytes.
+
+CommonJS works the same way:
+
+```js
+const { IReceiptPRO } = require('@ireceipt.pro/js');
+const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
+```
+
+## Is this the right tool for you?
+
+**There is no raw HTML → PDF endpoint.** Every call names a template that
+already lives on our side, either one of the public ones or one you author in
+the dashboard, and you supply the data as JSON. Nothing about your page markup
+is sent at request time.
+
+So if your layouts have to be versioned inside your own repository, next to the
+code that fills them, this is the wrong shape and something like Puppeteer,
+WeasyPrint or Gotenberg will serve you better. That is a real architectural
+difference rather than a missing feature, and it is worth knowing in the first
+minute rather than the first week.
+
+If you would rather not operate a browser binary to produce an invoice, it is
+the right shape.
+
+## Behaviour worth knowing before you wire it up
+
+**Success is `201`, not `200`.** The file's bytes are the response body. This
+catches people who wrap the call in something that treats anything but 200 as a
+failure.
+
+**Not everything is retried.** `createFile` makes up to five attempts, but only
+for failures a later attempt could plausibly fix: transport errors where no
+response arrived at all, 5xx, 408 and 429. A `401`, `403`, `404` or `422` throws
+on the first attempt.
+
+The sleeps between attempts are `(attempt + 1) × 1000ms`, so a fully retried
+failure spends `2 + 3 + 4 + 5 = 14s` across four sleeps. Budget your timeout for
+that number, and only for those statuses. A bad API key does not take 14
+seconds; it throws almost immediately.
+
+**A `403` may be a URL typo rather than a key problem.** The wire endpoint is:
+
+```
+POST https://api.ireceipt.pro/v1/{format}/{scope}/{templateId}
+```
+
+with `format` one of `pdf | jpg | png | webp` and `scope` one of
+`public | private`. A wrong **format** segment returns a clean `404`. A wrong
+**scope** segment returns `403 {"message":"Token invalid"}` — which is byte for
+byte what a genuinely invalid key returns. If you are getting `Token invalid`
+with a key you are confident in, check the scope segment before you rotate
+anything.
+
+## Methods
+
+Four formats × two scopes:
+
+| method | output | template |
+| --- | --- | --- |
+| `createPdfFromPublicTemplate` | PDF | public |
+| `createJpgFromPublicTemplate` | JPG | public |
+| `createPngFromPublicTemplate` | PNG | public |
+| `createWebpFromPublicTemplate` | WEBP | public |
+| `createPdfFromPrivateTemplate` | PDF | yours |
+| `createJpgFromPrivateTemplate` | JPG | yours |
+| `createPngFromPrivateTemplate` | PNG | yours |
+| `createWebpFromPrivateTemplate` | WEBP | yours |
+
+All eight take the same arguments:
+
+```ts
+const buffer: Buffer | ArrayBuffer = await irp.createPdfFromPublicTemplate(
+  templateId,
+  args,
+  size
+);
+```
+
+| argument | required | what it is |
+| --- | --- | --- |
+| `templateId` | yes | from <https://dashboard.ireceipt.pro>. Ids are stable; template *names* are not, so key off the id |
+| `args` | yes | the data substituted into the template. On the wire this field is called `variables` |
+| `size` | no | `{ width, height }` in pixels, e.g. `{ width: 796, height: 1126 }` |
+
+There is also `IReceiptPRO.useApiKey(apiKey)`, a static factory equivalent to
+`new IReceiptPRO(apiKey)`.
+
+## Calling it without the SDK
+
+There is no package for us on PyPI, RubyGems or Packagist, so from anything that
+is not Node it is a plain HTTP call:
+
+```
+POST https://api.ireceipt.pro/v1/pdf/public/invoice_universal_vzrt6k1s
+Authorization: Bearer <your api key>
+Content-Type: application/json
+
+{"variables": {"invoice": {"number": "13"}}}
+```
+
+`201`, with the PDF bytes as the response body. The full OpenAPI specification is
+published at <https://api.ireceipt.pro/openapi.yml>, with a browsable reference
+at <https://api.ireceipt.pro/>.
+
+## Runtime
+
+Node ≥ 16. Dual ESM/CJS with type declarations for both. One dependency
+(`axios`). MIT.
+
+## Templates
+
+Public templates you can call today. Each image links to a live sandbox where you
+can change the data and re-render it in the browser.
 
 | | |  |
 | --- | --- | --- |
-| [![Invoice template invoice_for_services_h2lmu9s2](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_for_services_h2lmu9s2.png "invoice_for_services_h2lmu9s2")](https://dashboard.ireceipt.pro/sandbox/public/invoice_for_services_h2lmu9s2) | [![Invoice template invoice_universal_e2wa2qvy](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_e2wa2qvy.png "invoice_universal_e2wa2qvy")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_e2wa2qvy) | [![Invoice template invoice_universal_k5gizy86](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_k5gizy86.png "invoice_universal_k5gizy86")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_k5gizy86) |
+| [![invoice_for_services_h2lmu9s2](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_for_services_h2lmu9s2.png "invoice_for_services_h2lmu9s2")](https://dashboard.ireceipt.pro/sandbox/public/invoice_for_services_h2lmu9s2) | [![invoice_universal_e2wa2qvy](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_e2wa2qvy.png "invoice_universal_e2wa2qvy")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_e2wa2qvy) | [![invoice_universal_k5gizy86](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_k5gizy86.png "invoice_universal_k5gizy86")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_k5gizy86) |
 
 |  |  |
 | --- | --- |
-| [![Invoice template invoice_universal_qg1oiing](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_qg1oiing.png "invoice_universal_qg1oiing")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_qg1oiing) | [![Invoice template invoice_universal_vzrt6k1s](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_vzrt6k1s.png "invoice_universal_vzrt6k1s")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_vzrt6k1s) |
+| [![invoice_universal_qg1oiing](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_qg1oiing.png "invoice_universal_qg1oiing")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_qg1oiing) | [![invoice_universal_vzrt6k1s](https://raw.githubusercontent.com/ireceipt-pro/js/refs/heads/main/assets/images/public_images_invoice_universal_vzrt6k1s.png "invoice_universal_vzrt6k1s")](https://dashboard.ireceipt.pro/sandbox/public/invoice_universal_vzrt6k1s) |
 
-## Get Started
+To author your own, or to find more ids, sign in at
+<https://dashboard.ireceipt.pro>.
 
-This library supports both CommonJS and ES modules (dual package).
+## A fuller example
 
-For the library to work, you will need an API key, which you can get at <https://dashboard.ireceipt.pro>. You can also find public template IDs there or create your own.
+The four-line call at the top is the whole API. This is what a real invoice
+payload looks like once the template is actually being filled:
 
-### ESM (ES Modules)
-```ts
-import { IReceiptPRO } from '@ireceipt.pro/js';
-
-const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
-```
-
-### CommonJS
-```js
-const { IReceiptPRO } = require('@ireceipt.pro/js');
-
-const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
-```
-
-### Example usage
 ```ts
 import { IReceiptPRO } from '@ireceipt.pro/js';
 
 const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
 
-irp.createJpgFromPublicTemplate("invoice_universal_vzrt6k1s", {
+await irp.createJpgFromPublicTemplate("invoice_universal_vzrt6k1s", {
   "invoice": {
     "number": "13",
     "date": "2023-10-03",
     "table": {
-      "headers": [
-        "NAME",
-        "PRICE",
-        "QTY",
-        "AMOUNT"
-      ],
+      "headers": ["NAME", "PRICE", "QTY", "AMOUNT"],
       "rows": [
-        {
-          "values": [
-            "Gorgeous Fresh Car",
-            "$100.99",
-            "6",
-            "$605.94"
-          ]
-        },
-        {
-          "values": [
-            "Incredible Rubber Bike",
-            "$356.00",
-            "1",
-            "$356.00"
-          ]
-        },
-        {
-          "values": [
-            "UX Services",
-            "$100.00",
-            "2",
-            "$200.00"
-          ]
-        },
-        {
-          "values": [
-            "Development Service",
-            "$2000.00",
-            "1",
-            "$2000.00"
-          ]
-        }
+        { "values": ["Gorgeous Fresh Car", "$100.99", "6", "$605.94"] },
+        { "values": ["Incredible Rubber Bike", "$356.00", "1", "$356.00"] },
+        { "values": ["UX Services", "$100.00", "2", "$200.00"] },
+        { "values": ["Development Service", "$2000.00", "1", "$2000.00"] }
       ]
     },
     "total": "$3161.94",
     "terms": [
       "Payment is due within 5 days",
-      "Payment method CARD",
-      "Card Details:",
-      "Card Number: 4242-4242-4242-4242",
-      "Sergey Dudko"
+      "Payment method CARD"
     ]
   },
   "from": {
     "companyName": "IReceipt PRO",
-    "lines": [
-      "Identification Number: 55891434",
-      "911 Reece Freeway",
-      "32390 Kraig Station",
-      "East Rhea",
-      "IR",
-      "support@ireceipt.pro"
-    ]
+    "lines": ["Identification Number: 55891434", "support@ireceipt.pro"]
   },
   "to": {
     "companyName": "Morissette - Bogisich",
-    "lines": [
-      "969 Harber Expressway",
-      "South Aishaton",
-      "GB"
-    ]
+    "lines": ["969 Harber Expressway", "South Aishaton", "GB"]
   },
   "localization": {
     "invoice": "INVOICE",
@@ -133,38 +210,13 @@ irp.createJpgFromPublicTemplate("invoice_universal_vzrt6k1s", {
 })
 ```
 
-## Use
+Which keys a template expects is a property of that template — open its sandbox
+to see the shape it wants.
 
-Available methods for generating PDF files and JPG, PNG, WEBP images from public or your personal templates:
+## How it fits together
 
-| method | description |
-| --- | --- |
-| `createJpgFromPublicTemplate` | Create JPG Image from public template |
-| `createPdfFromPublicTemplate` | Create PDF File from public template |
-| `createPngFromPublicTemplate` | Create PNG Image from public template |
-| `createWebpFromPublicTemplate` | Create WEBP Image from public template |
-| `createJpgFromPrivateTemplate` | Create JPG Image from private template |
-| `createPdfFromPrivateTemplate` | Create PDF File from private template |
-| `createPngFromPrivateTemplate` | Create PNG Image from private template |
-| `createWebpFromPrivateTemplate` | Create WEBP Image from private template |
-
-All methods have the same arguments, for example:
-
-```ts
-const buffer: Buffer | ArrayBuffer = await createJpgFromPublicTemplate(templateId, args, size);
-```
-
-| argument | description | required | example |
-| --- | --- | --- | --- |
-| `templateId` | template id, you can find it on <https://dashboard.ireceipt.pro> | true | `gift_card_template_1` |
-| `args` | arguments for substitution in the template | true | `{"amount": "$25","name": "Gift Card","code": "#1234567890","color": "#ebfdff"}` |
-| `size` | the size of the file being created | false | `{"width": 796,"height": 1126}` |
-
-## Project outline
-
-The scheme of work looks like this:
 ![IReceipt PRO Flow](https://ireceipt.pro/assets/images/main-flow-landscape.drawio.svg)
 
-## LICENSE
+## Licence
 
-MIT
+MIT.
