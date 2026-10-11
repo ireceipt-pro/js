@@ -1,3 +1,8 @@
+# 2.0.62 / 2026-10-11
+
+### :memo: Documentation
+- README: fixed the package name in the H1 (`@ireceipt.pro/js`), added an install line, documented errors, retries and size limits
+
 # 2.0.61 / 2026-10-10
 
 ### :tada: Enhancements
