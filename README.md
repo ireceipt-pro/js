@@ -12,9 +12,7 @@ Create PDF files and images (JPG, PNG, WEBP) from hosted templates and JSON.
 npm i @ireceipt.pro/js
 ```
 
-Note the dot in the scope. `@ireceipt.pro/js`, not `@ireceipt-pro/js`. And the
-unscoped names on npm are not us: `ireceipt` is an unrelated Taiwanese e-receipt
-library, `ireceipt-angular-client` an abandoned Angular CLI scaffold at 0.0.0.
+Note the dot in the scope: `@ireceipt.pro/js`, not `@ireceipt-pro/js`.
 
 ## Your first file
 
@@ -43,21 +41,12 @@ const { IReceiptPRO } = require('@ireceipt.pro/js');
 const irp = new IReceiptPRO(process.env.IRECEIPTPRO_API_KEY);
 ```
 
-## Is this the right tool for you?
+## How it works
 
 **There is no raw HTML → PDF endpoint.** Every call names a template that
 already lives on our side, either one of the public ones or one you author in
 the dashboard, and you supply the data as JSON. Nothing about your page markup
 is sent at request time.
-
-So if your layouts have to be versioned inside your own repository, next to the
-code that fills them, this is the wrong shape and something like Puppeteer,
-WeasyPrint or Gotenberg will serve you better. That is a real architectural
-difference rather than a missing feature, and it is worth knowing in the first
-minute rather than the first week.
-
-If you would rather not operate a browser binary to produce an invoice, it is
-the right shape.
 
 ## Behaviour worth knowing before you wire it up
 
@@ -67,26 +56,29 @@ failure.
 
 **Not everything is retried.** `createFile` makes up to five attempts, but only
 for failures a later attempt could plausibly fix: transport errors where no
-response arrived at all, 5xx, 408 and 429. A `401`, `403`, `404` or `422` throws
-on the first attempt.
+response arrived at all, 5xx, 408 and 429. Any other error, a `400`, `401`,
+`403` or `404`, throws on the first attempt.
 
 The sleeps between attempts are `(attempt + 1) × 1000ms`, so a fully retried
 failure spends `2 + 3 + 4 + 5 = 14s` across four sleeps. Budget your timeout for
 that number, and only for those statuses. A bad API key does not take 14
 seconds; it throws almost immediately.
 
-**A `403` may be a URL typo rather than a key problem.** The wire endpoint is:
+**What the errors mean.** The SDK throws an `Error` whose `message` is the
+server's message; the HTTP status is not attached to it, so match on the text.
 
-```
-POST https://api.ireceipt.pro/v1/{format}/{scope}/{templateId}
-```
+| status | `message` | cause |
+| --- | --- | --- |
+| `400` | `Invalid template name` | no template with that id in that scope (public vs your own) |
+| `400` | `A size larger than …` / `A size smaller than …` | `size` outside the allowed range, see below |
+| `401` | `Unauthorized` | no `Authorization` header. Raw HTTP only: the SDK always sends one, so an unset key (say, a missing env var) goes out as `Bearer undefined` and comes back as `Token invalid` |
+| `403` | `Token invalid` / `Token expired` | the key is unknown, revoked or expired |
+| `403` | `Limit exceeded` | your plan's monthly request limit is used up |
+| `403` | `A size larger than 1200x1200 requires a paid subscription.` | free-plan size cap |
+| `500` | varies | rendering failed on our side; the SDK retries it |
 
-with `format` one of `pdf | jpg | png | webp` and `scope` one of
-`public | private`. A wrong **format** segment returns a clean `404`. A wrong
-**scope** segment returns `403 {"message":"Token invalid"}` — which is byte for
-byte what a genuinely invalid key returns. If you are getting `Token invalid`
-with a key you are confident in, check the scope segment before you rotate
-anything.
+None of the `4xx` in this table are retried, so `Limit exceeded` fails fast
+instead of burning another 14 seconds.
 
 ## Methods
 
@@ -117,7 +109,7 @@ const buffer: Buffer | ArrayBuffer = await irp.createPdfFromPublicTemplate(
 | --- | --- | --- |
 | `templateId` | yes | from <https://dashboard.ireceipt.pro>. Ids are stable; template *names* are not, so key off the id |
 | `args` | yes | the data substituted into the template. On the wire this field is called `variables` |
-| `size` | no | `{ width, height }` in pixels, e.g. `{ width: 796, height: 1126 }` |
+| `size` | no | `{ width, height }` in pixels. Default A4 portrait, `796 × 1126`. Up to `1200 × 1200` on the free plan; on a paid plan up to `5000 × 5000` for PDF and `3200 × 3200` for images. A PDF must be at least `100 × 210` |
 
 There is also `IReceiptPRO.useApiKey(apiKey)`, a static factory equivalent to
 `new IReceiptPRO(apiKey)`.
@@ -134,6 +126,11 @@ Content-Type: application/json
 
 {"variables": {"invoice": {"number": "13"}}}
 ```
+
+The path is `/v1/{pdf|jpg|png|webp}/{public|private}/{templateId}`; an unknown
+format segment is a `404`, an unknown scope a `400 Invalid template type`. Besides
+`variables` and `size`, the body accepts `format` (`a4-portrait`, `a5-landscape`,
+… `a1` to `a7`), which takes precedence over `size`; the SDK does not send it.
 
 `201`, with the PDF bytes as the response body. The full OpenAPI specification is
 published at <https://api.ireceipt.pro/openapi.yml>, with a browsable reference
