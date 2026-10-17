@@ -76,7 +76,14 @@
     "templates",
     "mustache",
     "invoice",
-    "giftcard"
+    "giftcard",
+    "html-to-pdf",
+    "html-pdf",
+    "pdf-generation",
+    "pdf-generator",
+    "pdf-api",
+    "receipt",
+    "document-generation"
   ],
   "homepage": "https://ireceipt.pro",
   "devDependencies": {
